@@ -1,0 +1,17 @@
+
+// settings
+@import './styles/settings/variables';
+
+// core
+@import './styles/core/reset';
+@import './styles/core/typography';
+@import './styles/core/spacing';
+@import './styles/core/margin';
+@import './styles/core/form';
+
+// buttons
+@import './styles/components/buttons';
+@import './styles/components/scoreboard';
+
+// layout
+@import './styles/layout/container';

@@ -1,0 +1,136 @@
+.form {
+  &__group {
+    position: relative; 
+    margin-bottom: 45px
+  }
+  &__label {
+    color: $grey; 
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all; 
+    -moz-transition: 0.2s ease all; 
+    -webkit-transition: 0.2s ease all;
+  }
+  &__radio {
+    transition: 0.2s ease all; 
+    -moz-transition: 0.2s ease all; 
+    -webkit-transition: 0.2s ease all;
+    &-container {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+    }
+    &:checked ~ label {
+      border-radius: 50px;
+      background-color: $secondary-color;
+    }
+  }
+  label {
+    left: 0;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    transition: 0.2s ease all; 
+    -moz-transition: 0.2s ease all; 
+    -webkit-transition: 0.2s ease all;
+  }
+  &__input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid $grey;
+    background-color: transparent;
+    &--hidden {
+      display: none;
+    }
+    &:valid ~ label {
+      top: -20px;
+      font-size: 14px;
+      color: $secondary-color;
+    }
+    &:focus {
+      outline:none; 
+      & ~ label {
+        top: -20px;
+        font-size: 14px;
+        color: $secondary-color;
+      }
+      & ~ .highlight {
+        -webkit-animation: highlighter 0.3s ease;
+        -moz-animation: highlighter 0.3s ease;
+        animation: highlighter 0.3s ease;
+      }
+    }
+  }
+  .bar 	{ 
+    position: relative; 
+    display: block; 
+    width: 300px; 
+    &:before {
+      left: 50%;
+    }
+    &:after {
+      right: 50%; 
+    }
+    &:before, 
+    &:after {
+      content:'';
+      height: 2px; 
+      width: 0;
+      bottom: 1px; 
+      position: absolute;
+      background: $secondary-color; 
+      transition: 0.2s ease all; 
+      -moz-transition: 0.2s ease all; 
+      -webkit-transition: 0.2s ease all;
+    }
+  }
+  .highlight {
+    position: absolute;
+    height: 60%; 
+    width: 100px; 
+    top: 25%; 
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  input:focus ~ .bar:before, input:focus ~ .bar:after {
+    width: 50%;
+  }
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes highlighter {
+	from { 
+    background: $secondary-color; 
+  }
+  to 	{ 
+    width: 0; 
+    background: transparent; 
+  }
+}
+@-moz-keyframes highlighter {
+	from { 
+    background: $secondary-color; 
+  }
+  to 	{ 
+    width:0; 
+    background:ntransparent; 
+  }
+}
+@keyframes highlighter {
+	from { 
+    background: $secondary-color; 
+  }
+  to 	{
+    width:0; 
+    background: transparent; 
+  }
+}

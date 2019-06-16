@@ -1,0 +1,25 @@
+/*------------------------------------*\
+  TEXT ALIGN
+\*------------------------------------*/
+
+.text--right {
+  text-align: right;
+}
+.text--left {
+  text-align: left;
+}
+.text--center {
+  text-align: center;
+}
+
+/*------------------------------------*\
+  TEXT COLOR
+\*------------------------------------*/
+
+.text--primary {
+  color: $primary-color;
+}
+
+.text--secondary {
+  color: $secondary-color;
+}

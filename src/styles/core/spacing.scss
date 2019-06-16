@@ -1,0 +1,22 @@
+$padding-size: (
+  "0": 0px,
+  "10": 10px,
+  "15": 15px,
+  "20": 20px,
+  "25": 25px,
+  "30": 30px,
+  "35": 35px,
+  "40": 40px,
+);
+
+@each $name in $directions-breakpoints {
+  @each $size, $value in $padding-size {
+    //Css class
+    .padding--#{$size} {
+      padding: $value;
+    }
+    .padding--#{$name}-#{$size} {
+      padding-#{$name}: $value;
+    }
+  }
+}

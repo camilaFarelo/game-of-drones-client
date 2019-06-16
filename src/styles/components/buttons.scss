@@ -1,0 +1,13 @@
+.btn {
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  &--color-secondary {
+    background: $secondary-color;
+    color: $white;
+  }
+  &.full--width {
+    width: 100%;
+  }
+}
