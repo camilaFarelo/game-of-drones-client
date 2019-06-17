@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Battlefield from './Battlefield';
 
 export default class Game extends Component {
+  static propTypes = {
+    game: PropTypes.object,
+    users: PropTypes.object,
+    handleUpdateGame: PropTypes.func,
+  }
+
   state = {
     round: 1,
     roundTurn: 1,

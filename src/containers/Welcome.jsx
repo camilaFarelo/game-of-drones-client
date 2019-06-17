@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component}  from 'react';
+import PropTypes from 'prop-types';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -10,6 +12,11 @@ import ErrorMessage from './../components/shared/ErrorMessage';
 import PlayersForm from './../components/Welcome/PlayersForm';
 
 class Welcome extends Component {
+  static propTypes = {
+    createUsers: PropTypes.func,
+    history: PropTypes.object,
+  }
+
   state = {
     errorMessage: false,
     users: null,

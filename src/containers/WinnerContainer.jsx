@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -10,6 +11,10 @@ import { deleteUsers } from '../actions/users';
 import Winner from '../components/Winner';
 
 class WinnerContainer extends Component {
+  static propTypes = {
+    game: PropTypes.object,
+    history: PropTypes.object,
+  }
 
   handlerPlayAgainBtn = () => {
     const {game: {game}} = this.props;

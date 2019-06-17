@@ -1,6 +1,11 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 export default class players extends Component {
+  static propTypes = {
+    handleCreateUsers: PropTypes.func,
+  }
+
   state = {
     users: [{name: ''}, {name: ''}],
   }

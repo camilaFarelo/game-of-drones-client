@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 export default class ScoreBoard extends Component {
+  static propTypes = {
+    rounds: PropTypes.array,
+  }
 
   _getRoundWinner = (round) => {
     if (!round) return null;

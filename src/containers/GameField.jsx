@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component}  from 'react';
+import PropTypes from 'prop-types';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -7,6 +9,11 @@ import { fetchGame, updateGame } from '../actions/game';
 import Game from '../components/Game';
 
 class GameField extends Component {
+  static propTypes = {
+    users: PropTypes.object,
+    updateGame: PropTypes.func,
+    history: PropTypes.object,
+  }
 
   componentDidMount() {
     const {users} = this.props;

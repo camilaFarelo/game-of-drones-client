@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const GameOptionsForm = ({handleSubmitMove, selectedMove, options, handlesSelectMove}) => {
   return (
@@ -27,5 +28,12 @@ const GameOptionsForm = ({handleSubmitMove, selectedMove, options, handlesSelect
     </form>
   );
 }
+
+GameOptionsForm.propTypes = {
+  handleSubmitMove: PropTypes.func,
+  selectedMove: PropTypes.object,
+  options: PropTypes.array,
+  handlesSelectMove: PropTypes.func,
+};
 
 export default GameOptionsForm;

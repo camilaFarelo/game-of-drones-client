@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const BattlefieldHeader = ({round, userName}) => {
   return (
@@ -9,5 +10,10 @@ const BattlefieldHeader = ({round, userName}) => {
     </div>
   );
 }
+
+BattlefieldHeader.propTypes = {
+  round: PropTypes.number,
+  userName: PropTypes.string,
+};
 
 export default BattlefieldHeader;

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import {getScore, getTotalScore, parsePutData} from './utils/utils';
 import GameOptionsForm from './GameOptionsForm';
@@ -6,6 +7,12 @@ import BattlefieldHeader from './BattlefieldHeader';
 import ScoreBoard from './ScoreBoard';
 
 export default class Battlefield extends Component {
+  static propTypes = {
+    game: PropTypes.object,
+    roundTurn: PropTypes.number,
+    roundArray: PropTypes.array,
+  }
+
   state = {
     player1: null,
     totalPlayer1Score: 0,
