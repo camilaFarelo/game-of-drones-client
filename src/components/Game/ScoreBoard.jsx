@@ -2,37 +2,50 @@ import React, {Component} from 'react';
 
 export default class ScoreBoard extends Component {
 
-  _getUserScore = (user) => {
-    const {game: {game}} = this.props;
-    if (!game) return null;
-    const firstPlayer = game.first_player.player[0];
-    const secondPlayer = game.second_player.player[0];
-    if (firstPlayer.player_id === user.id) return firstPlayer.player_score;
-    if (secondPlayer.player_id === user.id) return secondPlayer.player_score;
+  _getRoundWinner = (round) => {
+    if (!round) return null;
+    return round.player_1_score > round.player_2_score
+      ? round.first_player_name
+      : round.second_player_name;
   }
 
-  _renderScore = (user) => {
-    const score = this._getUserScore(user);
+  _renderTableRow = (round, index) => {
     return (
-      <div key={user.id}>
-        <h3>Player {user.name}</h3>
-        <p>{score}</p>
-      </div>
+      <tr key={index}>
+        <td>{round.round}</td>
+        <td>{this._getRoundWinner(round)}</td>
+      </tr>
+    )
+  }
+
+  _renderScoreTable = () => {
+    const {rounds} = this.props;
+    return (
+      <table className='table'>
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Winner</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rounds.length ?
+            rounds.map((round, index) => (
+              this._renderTableRow(round, index)
+            )) : null
+          }
+        </tbody> 
+      </table>
     );
   }
 
   render() {
-    const {users} = this.props;
     return (
         <div>
           <div className='scoreboard'>
-            <h1>Scoreboard</h1>
+            <h1 className='text--center'>Scoreboard</h1>
             <div className='scoreboard__container'>
-              {(users && users.createdUsers.length) && 
-                users.createdUsers.map((user) => (
-                this._renderScore(user)
-                ))
-              }
+              {this._renderScoreTable()}
             </div>
           </div>
         </div>

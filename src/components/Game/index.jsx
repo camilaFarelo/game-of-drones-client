@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 
-import ScoreBoard from './ScoreBoard';
 import Battlefield from './Battlefield';
-
 
 export default class Game extends Component {
   state = {
@@ -33,13 +31,16 @@ export default class Game extends Component {
     });
   }
 
+  setRound = (round) => {
+    this.setState({round});
+  }
+
   setUser = (roundTurn) => {
     this.setState({roundTurn});
   }
 
   render() {
     const {handleUpdateGame} = this.props
-    console.log('userName', this.state.userName);
     return (
       <div className='container container--center container--bg-primary full-height'>
         <div>
@@ -51,8 +52,8 @@ export default class Game extends Component {
             round={this.state.round}
             userName={this.state.userName}
             roundTurn={this.state.roundTurn}
+            setRound={this.setRound}
           />
-          <ScoreBoard {...this.props}/>
         </div>
       </div>
     );

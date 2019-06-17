@@ -1,102 +1,101 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
+
+import {getScore, getTotalScore, parsePutData} from './utils/utils';
+import GameOptionsForm from './GameOptionsForm';
+import BattlefieldHeader from './BattlefieldHeader';
+import ScoreBoard from './ScoreBoard';
 
 export default class Battlefield extends Component {
   state = {
     player1: null,
+    totalPlayer1Score: 0,
+    totalPlayer2Score: 0,
+    selectedMove: null,
+    roundArray: [],
+    options: [
+      {name: 'rock', value: 0},
+      {name: 'paper', value: 1},
+      {name: 'scissors', value: 2},
+    ]
   }
 
-  _getScore = (weapon) => {
-    const {player1} = this.state;
-    let player2Score;
-    let player1Score;
-    if (weapon == player1.weapon) {
-      player2Score = 0;
-      player1Score = 0;
-    } else if ((weapon - player1.weapon + 3) % 3 == 1) {
-      player2Score = 1;
-      player1Score = 0;
-    } else {
-      player2Score = 0;
-      player1Score = 1;
-    }
-    return {
-      player2Score,
-      player1Score
-    }
-  }
-
-  _setRound = (event) => {
+  handleSubmitMove = (event) => {
     event.preventDefault();
-    const {game: {game}, roundTurn} = this.props;
-    const weapon = document.querySelector('input[name="weapon"]:checked').value;
+    const {selectedMove, player1, roundArray} = this.state;
+    const {game: {game}, roundTurn, round} = this.props;
+    const weapon = selectedMove && selectedMove.value;
+    let newRoundArray = roundArray.slice();
+
     if (roundTurn === 1) {
+      // for the first move
+      this.props.setUser(roundTurn + 1);
       this.setState({player1: {
         weapon: weapon,
         fist_player: game.first_player.player[0].player_id
       }});
     } else {
-      const scores = this._getScore(weapon);
-      const data = {
-        id: game.id,
-        round: [{
-          round: this.props.round,
-          fist_player: game.first_player.player[0].player_id,
-          second_player: game.second_player.player[0].player_id,
-          player_1_score: scores.player1Score,
-          player_2_score: scores.player2Score,
-        }]
-      }
-      this.props.handleUpdateGame(data);
+      const scores = getScore(weapon, player1);
+      const totalScore = getTotalScore(scores, this.state);
+      const roundArrayIndex = !newRoundArray.length ? newRoundArray.length : (newRoundArray.length - 1) + 1 ;
+      newRoundArray[roundArrayIndex] = parsePutData(game, scores, round);
+      this.setState(
+        {
+          totalPlayer1Score: totalScore.player1Score, 
+          totalPlayer2Score: totalScore.player2Score,
+          roundArray: newRoundArray
+        }, 
+        () => {
+          this._onPutRoundData(round);
+        } 
+      );
     }
-    this.props.setUser(roundTurn + 1);
     this.props.setUserName();
   }
 
-  _gameOptions = () => {
-    return (
-      <form className='form margin--bottom-30' onSubmit={this._setRound}>
-        <div className='form__radio-container'>
-          <input type='radio' id='rock' name='weapon' value='0' className='form__radio form__input--hidden' />
-          <label htmlFor='rock'>
-            <img src='./../../images/rock.png' width='50px' />
-          </label>
-        </div>
-        <div className='form__radio-container'>
-          <input type='radio' id='paper' name='weapon' value='1' className='form__radio form__input--hidden' />
-          <label htmlFor='paper'>
-            <img src='./../../images/paper.png' width='50px' />
-          </label>
-        </div>
-        <div className='form__radio-container'>
-          <input type='radio' id='scissors' name='weapon' value='2' className='form__radio form__input--hidden' />
-          <label htmlFor='scissors'>
-            <img src='./../../images/scissors.png' width='50px' />
-          </label>
-        </div>
-        <input 
-          className='btn btn--color-secondary margin--top-30 full--width' 
-          type='submit' 
-          value='Ok'
-        />
-      </form>
-    );
+  _onPutRoundData = (round) => {
+    this.props.setUser(1);
+    this.props.setRound(round + 1);
+    this._onUpdateGameRecord(this.state.roundArray);
+  }
+
+  handlesSelectMove = (event) => {
+    const {target} = event;
+    this.setState({selectedMove: {
+      id: target.id,
+      value: target.value,
+    }});
   }
   
-  _header = (player) => {
-    const {userName, round} = this.props;
-    return (
-      <div>
-        <h1>round {round}</h1>
-        <h4>{userName}</h4>
-      </div>
-    );
+  _onResetOption = () => {
+    this.setState({selectedMove: null});
+  }
+
+  _onUpdateGameRecord = (roundArray) => {
+    const {game: {game}} = this.props;
+    if (
+      this.state.totalPlayer1Score === 3 || 
+      this.state.totalPlayer2Score === 3
+    ) {
+      const data = {id: game.id, round: roundArray}
+      this.props.handleUpdateGame(data);
+      this._onResetOption();
+    }
   }
 
   render() {
     return (
       <div className='text--center'>
-        {this._header()}
-        {this._gameOptions()}
+        <BattlefieldHeader
+          round={this.props.round}
+          userName={this.props.userName}
+        />
+        <GameOptionsForm
+          handleSubmitMove={this.handleSubmitMove}
+          handlesSelectMove={this.handlesSelectMove}
+          options={this.state.options}
+          selectedMove={this.state.selectedMove}
+        />
+        <ScoreBoard rounds={this.state.roundArray} />
       </div>
     );
   }

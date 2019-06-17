@@ -1,0 +1,12 @@
+.table {
+  width: 100%;
+  th, td {
+    padding: 10px;
+  }
+  thead {
+    background-color: $primary-color-dark;
+  }
+  tr {
+    border-bottom: 1px solid #fff;
+  }
+}

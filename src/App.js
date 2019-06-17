@@ -8,6 +8,7 @@ import reducer from './reducers';
 import './App.scss';
 import Welcome from './containers/Welcome'
 import GameField from './containers/GameField'
+import WinnerContainer from './containers/WinnerContainer'
 
 //img
 import './images/paper.png';
@@ -25,6 +26,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path='/game' component={GameField} />
+            <Route path='/winner' component={WinnerContainer} />
             <Route path='/' component={Welcome} />
           </Switch>
         </BrowserRouter>

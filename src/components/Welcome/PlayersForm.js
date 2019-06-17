@@ -37,7 +37,7 @@ export default class players extends Component {
   render() {
     return (
       <form className='form' onSubmit={this._handleCreateUsers}>
-        <fieldset className='margin--bottom-30'>
+        <fieldset className='margin--bottom-30 test-welcome-form'>
           <legend>Enter your nickname and start to play!!</legend>
           <div className='padding--top-30'>
             {this._renderUser(0)}

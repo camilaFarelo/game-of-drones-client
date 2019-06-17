@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchGame, updateGame } from '../actions/game';
+import {withRouter} from 'react-router-dom';
 
+import { fetchGame, updateGame } from '../actions/game';
 import Game from '../components/Game';
 
 class GameField extends Component {
@@ -17,16 +18,17 @@ class GameField extends Component {
 
   handleUpdateGame = (game) => {
     this.props.updateGame(game);
+    this.props.history.push({
+      pathname: '/winner',
+    });
   }
 
   render() {
-    console.log('render', this.props);
     return <Game {...this.props} handleUpdateGame={this.handleUpdateGame} />
   }
 }
 
 const mapStateToProps = _state => {
-  console.log('GAMEFIELD._STATE', _state);
   return {
     users: _state.users,
     game: _state.game,
@@ -43,4 +45,4 @@ const mapDispatchToProps = _dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameField);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(GameField));

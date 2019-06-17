@@ -3,11 +3,22 @@
   border-radius: 4px;
   padding: 10px 20px;
   text-transform: uppercase;
+  text-decoration: none;
+  transition: 0.2s ease all; 
+  -moz-transition: 0.2s ease all; 
+  -webkit-transition: 0.2s ease all;
   &--color-secondary {
     background: $secondary-color;
     color: $white;
+    &:hover {
+      background-color: $secondary-color-dark;
+    }
   }
   &.full--width {
     width: 100%;
+  }
+
+  &:focus {
+    outline: none;
   }
 }

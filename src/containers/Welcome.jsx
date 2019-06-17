@@ -1,11 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 
 import { fetchUsers, createUsers } from '../actions/users';
-import { createGame } from '../actions/game';
 import Header from './../components/Welcome/Header';
 import ErrorMessage from './../components/shared/ErrorMessage';
 import PlayersForm from './../components/Welcome/PlayersForm';
